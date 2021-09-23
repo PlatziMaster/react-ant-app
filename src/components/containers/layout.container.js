@@ -5,7 +5,8 @@ import {
   HomeOutlined,
   UserOutlined,
   CalendarOutlined,
-  PlusCircleOutlined
+  PlusCircleOutlined,
+  TeamOutlined
 } from "@ant-design/icons";
 
 const { Header, Content, Sider } = Layout;
@@ -20,9 +21,13 @@ function AppLayout({ children }) {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={isCollapsed} onCollapse={handleOnCollapse}>
+        <Header />
         <Menu theme="dark" mode="inline">
           <Menu.Item key="1" icon={<HomeOutlined />}>
             <Link to="/">Home</Link>
+          </Menu.Item>
+          <Menu.Item key="users" icon={<TeamOutlined />}>
+            <Link to="/users">Users</Link>
           </Menu.Item>
           <Menu.SubMenu
             key="menuProfile"
