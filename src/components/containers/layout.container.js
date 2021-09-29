@@ -6,7 +6,8 @@ import {
   UserOutlined,
   CalendarOutlined,
   PlusCircleOutlined,
-  TeamOutlined
+  TeamOutlined,
+  AppstoreOutlined
 } from "@ant-design/icons";
 
 const { Header, Content, Sider } = Layout;
@@ -28,6 +29,9 @@ function AppLayout({ children }) {
           </Menu.Item>
           <Menu.Item key="users" icon={<TeamOutlined />}>
             <Link to="/users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="products" icon={<AppstoreOutlined />}>
+            <Link to="/products">Products</Link>
           </Menu.Item>
           <Menu.SubMenu
             key="menuProfile"
