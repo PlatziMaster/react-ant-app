@@ -1,6 +1,6 @@
 import { Form, Input, Button, Select } from "antd";
 
-function ProductForm() {
+function ProductForm({categories, handleSubmit, isLoading}) {
   const initialValues = {
     title: "",
     price: 0,
@@ -8,11 +8,19 @@ function ProductForm() {
     description: "",
   };
 
+  const handleOnFinish = (values) => {
+    handleSubmit({
+      ...values,
+      images: ["https://placeimg.com/640/480/any"]
+    });
+  }
+
 
   return (
     <Form
       name="productForm"
       initialValues={initialValues}
+      onFinish={handleOnFinish}
       onFinishFailed
       labelCol={{
         span: 3,
@@ -65,8 +73,7 @@ function ProductForm() {
         ]}
       >
         <Select>
-          <Select.Option value='uno'>Uno</Select.Option>
-          <Select.Option value='dos'>Dos</Select.Option>
+          {categories.map(item => <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>)}
         </Select>
       </Form.Item>
       <Form.Item
@@ -74,7 +81,7 @@ function ProductForm() {
           offset: 3,
         }}
       >
-        <Button  type="primary" htmlType="submit">
+        <Button loading={isLoading} type="primary" htmlType="submit">
           Enviar
         </Button>
       </Form.Item>
