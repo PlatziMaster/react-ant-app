@@ -20,6 +20,7 @@ function App() {
           <Route exact path="/users" component={UsersPage} />
           <Route exact path="/products" component={ProductsPage} />
           <Route exact path="/products/new" component={ProductFormPage} />
+          <Route exact path="/products/update/:id" component={ProductFormPage} />
         </AppLayout>
       </Switch>
     </BrowserRouter>

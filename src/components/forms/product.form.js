@@ -1,11 +1,11 @@
 import { Form, Input, Button, Select } from "antd";
 
-function ProductForm({categories, handleSubmit, isLoading}) {
+function ProductForm({categories, handleSubmit, isLoading, product}) {
   const initialValues = {
-    title: "",
-    price: 0,
-    categoryId: "",
-    description: "",
+    title: product?.title ?? "",
+    price: product?.price ?? 0,
+    categoryId: product?.category?.id ?? "",
+    description: product?.description ?? "",
   };
 
   const handleOnFinish = (values) => {

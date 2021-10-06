@@ -1,11 +1,36 @@
-import { PageHeader, Button, Image, Table } from "antd";
+import { PageHeader, Button, Image, Table, Space, notification } from "antd";
 import { Link } from "react-router-dom";
-import { GetProducts } from "../../services/products.service";
+import { useQueryClient } from "react-query";
+import {
+  EditOutlined,
+  DeleteOutlined
+} from "@ant-design/icons";
+import { GetProducts, DeleteProduct, stateProducts } from "../../services/products.service";
 
 
 function ProductsPage() {
 
   const { isLoading, data } = GetProducts();
+  const queryClient = useQueryClient();
+  const deleteMutation = DeleteProduct({
+    onSuccess: (response, id) => {
+      // queryClient.refetchQueries(stateProducts);
+      queryClient.setQueryData(stateProducts, data => {
+        return data.filter(item => item.id !== id);
+      });
+    },
+    onError: () => {
+      notification.error({
+        message: "Ups algo salio mal",
+        description:
+          "This is the content of the notification. This is the content of the notification. This is the content of the notification.",
+      });
+    },
+  });
+
+  const handleDelete = (id) => {
+    deleteMutation.mutate(id);
+  }
 
   const columns = [
     {
@@ -32,6 +57,19 @@ function ProductsPage() {
         const cover = images[0];
         return <Image src={cover} width={100}/>
       }
+    },
+    {
+      title: 'Actions',
+      key: 'action',
+      render: (text, item) => (
+        <Space size="middle">
+
+          <Link to={`/products/update/${item.id}`}>
+            <Button icon={<EditOutlined />} />
+          </Link>
+          <Button onClick={() => handleDelete(item.id)} icon={<DeleteOutlined />} />
+        </Space>
+      ),
     },
   ];
 
